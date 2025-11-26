@@ -56,9 +56,9 @@ describe('TwoFactorAuthServiceService', () => {
     fakeAsync((service: TwoFactorAuthService, httpMock: HttpTestingController) => {
       let res: any
 
-      // ❗ FIX: removed real-looking password
+      // FIXED: replaced hard-coded password with mock value
       service.setup('test-password', 'initialToken', 'setupToken')
-              .subscribe((data) => (res = data))
+        .subscribe((data) => (res = data))
 
       const req = httpMock.expectOne('http://localhost:3000/rest/2fa/setup')
       req.flush({})
@@ -79,15 +79,18 @@ describe('TwoFactorAuthServiceService', () => {
     fakeAsync((service: TwoFactorAuthService, httpMock: HttpTestingController) => {
       let res: any
 
-      // ❗ FIX: removed real-looking password
-      service.disable('test-password').subscribe((data) => (res = data))
+      // FIXED: replaced hard-coded password with mock value
+      service.disable('test-password')
+        .subscribe((data) => (res = data))
 
       const req = httpMock.expectOne('http://localhost:3000/rest/2fa/disable')
       req.flush({})
       tick()
 
       expect(req.request.method).toBe('POST')
-      expect(req.request.body).toEqual({ password: 'test-password' })
+      expect(req.request.body).toEqual({
+        password: 'test-password'
+      })
       expect(res).toBe(undefined)
       httpMock.verify()
     })
