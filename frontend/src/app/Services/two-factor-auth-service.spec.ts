@@ -56,7 +56,7 @@ describe('TwoFactorAuthServiceService', () => {
     fakeAsync((service: TwoFactorAuthService, httpMock: HttpTestingController) => {
       let res: any
 
-      // FIXED: replaced hard-coded password with mock value
+      // FIXED: replaced hard-coded password
       service.setup('test-password', 'initialToken', 'setupToken')
         .subscribe((data) => (res = data))
 
@@ -70,6 +70,7 @@ describe('TwoFactorAuthServiceService', () => {
         initialToken: 'initialToken',
         setupToken: 'setupToken'
       })
+
       expect(res).toBe(undefined)
       httpMock.verify()
     })
@@ -79,7 +80,7 @@ describe('TwoFactorAuthServiceService', () => {
     fakeAsync((service: TwoFactorAuthService, httpMock: HttpTestingController) => {
       let res: any
 
-      // FIXED: replaced hard-coded password with mock value
+      // FIXED: replaced hard-coded password
       service.disable('test-password')
         .subscribe((data) => (res = data))
 
@@ -91,6 +92,7 @@ describe('TwoFactorAuthServiceService', () => {
       expect(req.request.body).toEqual({
         password: 'test-password'
       })
+
       expect(res).toBe(undefined)
       httpMock.verify()
     })
