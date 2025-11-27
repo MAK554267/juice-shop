@@ -30,7 +30,16 @@ export interface Notification {
 }
 export const notifications: Notification[] = []
 
-export let retrieveBlueprintChallengeFile: string | null = null
-export function setRetrieveBlueprintChallengeFile (retrieveBlueprintChallengeFileArg: string) {
-  retrieveBlueprintChallengeFile = retrieveBlueprintChallengeFileArg
+
+// ❗ FIX: Do NOT export a mutable let binding
+let retrieveBlueprintChallengeFileValue: string | null = null
+
+// Export getter
+export function getRetrieveBlueprintChallengeFile (): string | null {
+  return retrieveBlueprintChallengeFileValue
+}
+
+// Export setter
+export function setRetrieveBlueprintChallengeFile (retrieveBlueprintChallengeFileArg: string): void {
+  retrieveBlueprintChallengeFileValue = retrieveBlueprintChallengeFileArg
 }
